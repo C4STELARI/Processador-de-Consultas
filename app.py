@@ -98,8 +98,10 @@ if st.button("Analisar e Otimizar"):
 
         with col2:
             st.subheader("2. Árvore Otimizada")
-            arvore_otimizada = optimize_tree(copy.deepcopy(arvore_canonica))
-            arvore_final = apply_projection_heuristic(arvore_otimizada)
+            arvore_otimizada = apply_projection_heuristic(
+                copy.deepcopy(arvore_canonica)
+            )
+            arvore_final = optimize_tree(arvore_otimizada)
 
             grafico_otimizado = generate_graph(arvore_final)
             st.graphviz_chart(grafico_otimizado)
@@ -118,3 +120,5 @@ if st.button("Analisar e Otimizar"):
         st.error("Erro na consulta:")
         for err in resultado["errors"]:
             st.write(f"- {err}")
+
+# SELECT Produto.Nome, Categoria.Descricao FROM Categoria INNER JOIN Produto ON Categoria.idCategoria = Produto.Categoria_idCategoria INNER JOIN Pedido_has_Produto ON Produto.idProduto = Pedido_has_Produto.Produto_idProduto  WHERE Produto.Preco > 100.00
